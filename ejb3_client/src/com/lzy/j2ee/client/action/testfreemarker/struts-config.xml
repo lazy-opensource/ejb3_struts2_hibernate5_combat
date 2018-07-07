@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <package name="testfreemarker" namespace="/struts/testfreemarker" extends="globalPackage">
+        <!--method 默认值是execute-->
+        <action name="index" method="test" class="com.lzy.j2ee.client.action.testfreemarker.TestFreeMarkerAction">
+            <!--注意这里的type值是freemarker-->
+            <result name="main" type="freemarker">
+                /WEB-INF/jsp/testfreemarker/main.ftl
+            </result>
+        </action>
+    </package>
+
+</struts>

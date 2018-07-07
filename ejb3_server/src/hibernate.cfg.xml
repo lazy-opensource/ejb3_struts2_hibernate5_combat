@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+        <!DOCTYPE hibernate-configuration PUBLIC
+                "-//Hibernate/Hibernate Configuration DTD//EN"
+                "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+<session-factory>
+    <!-- 方言类 -->
+    <property name="dialect">org.hibernate.dialect.Oracle10gDialect</property>
+    <property name="connection.url">
+        <!--连接Oracle的IP地址及端口号-->
+        jdbc:oracle:thin:@127.0.0.1:1521:ORCL
+    </property>
+    <!--连接Oracle的用户名-->
+    <property name="connection.username">scott</property>
+    <!--连接Oracle的密码-->
+    <property name="connection.password">123456</property>
+    <!--连接Oracle的驱动类名-->
+    <property name="connection.driver_class">
+        oracle.jdbc.driver.OracleDriver
+    </property>
+    <!--以格式良好的方式显示SQL语句-->
+    <property name="format_sql">true</property>
+    <!--显示SQL语句-->
+    <property name="show_sql">true</property>
+
+    <mapping resource="com/lzy/j2ee/server/entity/HelloHibernate.hbm.xml" />
+</session-factory>
+
+</hibernate-configuration>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    
+
+    <!--
+    注意这里继承json-default来实现返回JSON到前台的功能；
+    -->
+    <package name="teststateful" namespace="/struts/teststateful" extends="json-default,globalPackage">
+
+        <!--定义好拦截栈， 注意：现在我们的开发是模块化的方式，这里定义的拦截器对其它模块没有意识-->
+        <interceptors>
+            <!--这是一个拦截器-->
+            <interceptor name="isExistsCartInterceptor" class="com.lzy.j2ee.client.action.teststateful.CartInterceptor"/>
+            <!-- TODO 这里可以加其它的拦截器-->
+
+            <!--将拦截器加入栈里面-->
+            <interceptor-stack name="statefulsession-interceptorstack">
+                <!--一定要包含默认的，否则，你会失去Struts2的强大功能-->
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="isExistsCartInterceptor" />
+            </interceptor-stack>
+        </interceptors>
+
+        <!--这里使用上面定义的拦截栈-->
+        <default-interceptor-ref name="statefulsession-interceptorstack" />
+
+        <action name="*_*" method="{2}" class="com.lzy.j2ee.client.action.teststateful.{1}">
+
+           <!--
+           result 元素的 name 属性建立 <result> 和 Action 方法返回值之间的映射关系。
+
+           result 元素的 type 属性负责指定结果类型.
+           type 属性的值必须是在包含当前包或者是当前包的父包里注册过的结果类型. type 属性的默认值为 dispatcher
+           -->
+            <result name="{2}" type="dispatcher">/WEB-INF/jsp/teststateful/{2}.jsp</result>
+
+            <result name="add" type="json">
+                <!-- 这里指定将被Struts2序列化的属性，该属性在action中必须有对应的getter方法 -->
+                <!-- 默认将会序列所有有返回值的getter方法的值，而无论该方法是否有对应属性 -->
+                <param name="root">resultMap</param>
+                <!--null值得属性排除-->
+                <param name="excludeNullProperties">true</param>
+                <!--resultMap 包含以testinclude_开头的属性-->
+                <param name="includeProperties">
+                    testinclude_.*
+                </param>
+                <!--从resultMap排除以testexclude_开头的属性-->
+                <param name="excludeProperties">
+                    testexclude_.*
+                </param>
+            </result>
+        </action>
+    </package>
+
+</struts>

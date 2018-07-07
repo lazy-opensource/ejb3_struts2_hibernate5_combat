@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <package name="testinject" namespace="/struts/testinject" extends="globalPackage">
+        <action name="example" class="com.lzy.j2ee.client.action.testinject.TestInjectAction">
+            <result>/WEB-INF/jsp/testinject/index.jsp</result>
+            <!--这行配置作用是：当验证没有通过时，该返回哪个页面进行信息的展示-->
+            <result name="input">/WEB-INF/jsp/testinject/index.jsp</result>
+        </action>
+    </package>
+
+    <!--这一行配置主要是提示验证消息时，屏蔽Struts2的自动生成table/td/tr标签-->
+    <constant name="struts.ui.theme" value="simple" />
+    <!--这里指定国际化文件的标识-->
+    <constant name="struts.custom.i18n.resources"  value="info" />
+    <constant name="struts.i18n.encoding"  value="UTF-8" />
+    <!--这里指定使用哪个国际化配置文件-->
+    <constant name="struts.locale" value="zh_CN" />
+    <!--
+   该模块开启动态方法调用
+   支持${pageContext.request.contextPath}/struts/passivationandactivation/test_injectInjectBeanClientAction!testInjectBean
+   官网不推荐使用这种方式,建议大家不要使用.这里只做演示,记得演示完了要把它关掉（value="false")
+
+   郑重说明：一定要删掉struts.xml配置文件的(如果有配置且配置为false的话):
+   <constant name="struts.enable.DynamicMethodInvocation" value="false" />这一行配置，
+   否则，当你动态调用时，因此而导致的奇葩问题，即使你通宵达旦也很难找到问题所在
+   -->
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+
+</struts>

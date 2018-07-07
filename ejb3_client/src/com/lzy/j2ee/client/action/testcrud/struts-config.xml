@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <package name="testcrud" namespace="/struts/testcrud" extends="json-default,globalPackage">
+
+        <action name="*" method="{1}" class="com.lzy.j2ee.client.action.testcrud.TestCrudAction">
+            <result name="list" type="dispatcher">/WEB-INF/jsp/testcrud/list.jsp</result>
+            <result name="load" type="json">
+                <param name="root">result</param>
+            </result>
+            <result name="add" type="dispatcher">/WEB-INF/jsp/testcrud/add.jsp</result>
+            <result name="edit" type="dispatcher">/WEB-INF/jsp/testcrud/edit.jsp</result>
+        </action>
+
+    </package>
+
+</struts>

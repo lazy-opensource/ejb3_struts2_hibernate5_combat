@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+        <!--struts.xml文件通常放在Web应用的WEB-INF/classes路径下。
+        实际上，只要将该文件放在Web应用的CLASSPATH路径下，Struts 2框架就可以加载该文件。-->
+<struts>
+
+    <!-- 打印出详细错误信息，方便开发用 -->
+    <constant name="struts.devMode" value="true" />
+    <!-- /static 为存放静态资源的路径，意为不拦截对此文件夹下文件的请求 -->
+    <constant name="struts.action.excludePattern" value="/static/.*?" />
+    <!-- 该属性指定需要Struts2处理的请求后缀，该属性的默认值是action，即所有匹配*.action的请求都由Struts2处理。
+        如果用户需要指定多个请求后缀，则多个后缀之间以英文逗号（,）隔开。 -->
+<!--    <constant name="struts.action.extension" value="do,action" />-->
+    <!-- 设置浏览器是否缓存静态内容,默认值为true(生产环境下使用),开发阶段最好关闭 -->
+    <constant name="struts.serve.static.browserCache" value="false" />
+    <!-- 当struts的配置文件修改后,系统是否自动重新加载该文件,默认值为false(生产环境下使用),开发阶段最好打开 -->
+    <constant name="struts.configuration.xml.reload" value="true" />
+
+    <!--
+    package：
+    Struts2 把各种 action 分门别类地组织成不同的包.
+    可以把包想象为一个模块.
+    一个典型的 struts.xml 文件可以有一个或多个包
+
+    namespace：
+    namespace 属性是可选的,
+    如果它没有给出, 则以 “/” 为默认值.
+    若 namespace 有一个非默认值, 则要想调用这个包里的Action, 就必须把这个属性所定义的命名空间添加到有关的 URI 字符串里
+
+    extends：
+    package 元素通常要对 struts-default.xml 文件里定义的 struts-default 包进行扩展.
+    配置extends了以后, 包里的所有动作就可以使用在 struts-default.xml 文件里的结果类型和拦截器了.
+    这里说明一下关于extends=struts-default的作用，
+    这里是指继承自struts2-core-2.3.33.jar包下的struts-default.xml文件，
+    这个文件配置了默认的将近20多个拦截器和结果类型。
+    我们知道struts2的所有功能都是基于拦截器来实现的，比如文件的验证、上传、下载等；
+    -->
+    <package name="globalPackage" namespace="/" extends="struts-default">
+
+        <!--配置全局异常页面 /WEB-INF/jsp/error.jsp-->
+        <global-results>
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
+        </global-results>
+
+        <!--
+        配置全局异常类型 java.lang.Exception
+        在 global-exception-mappings 元素下声明的任何 exception-mapping
+           元素只能引用在 global-results 元素下声明的某个 result 元素
+        -->
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error"/>
+        </global-exception-mappings>
+
+    </package>
+
+    <!--Add actions xml here-->
+    <!--example-->
+    <include file="com/lzy/j2ee/client/action/example/struts-config.xml"></include>
+    <!--testlifecycle-->
+    <include file="com/lzy/j2ee/client/action/testlifecycle/struts-config.xml"></include>
+    <!--testinstancepool-->
+    <include file="com/lzy/j2ee/client/action/testinstancepool/struts-config.xml"></include>
+    <!--testfieldshare-->
+    <include file="com/lzy/j2ee/client/action/testfieldshare/struts-config.xml"></include>
+    <!--teststateful-->
+    <include file="com/lzy/j2ee/client/action/teststateful/struts-config.xml"></include>
+    <!--testinject-->
+    <include file="com/lzy/j2ee/client/action/testinject/struts-config.xml"></include>
+    <!--testjms-->
+    <include file="com/lzy/j2ee/client/action/testjms/struts-config.xml"></include>
+    <!--testwebservice-->
+    <include file="com/lzy/j2ee/client/action/testwebservice/struts-config.xml"></include>
+    <!--testtimer-->
+    <include file="com/lzy/j2ee/client/action/testtimer/struts-config.xml"></include>
+    <!--testcrud-->
+    <include file="com/lzy/j2ee/client/action/testcrud/struts-config.xml"></include>
+    <!--testfreemarker-->
+    <include file="com/lzy/j2ee/client/action/testfreemarker/struts-config.xml"></include>
+</struts>

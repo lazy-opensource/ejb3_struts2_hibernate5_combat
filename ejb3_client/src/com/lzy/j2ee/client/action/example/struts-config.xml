@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <!--
+    注意:这里extends包globalPackage（src/struts.xml文件的包名）
+    而globalPackage继承struts-default.xml
+    因此，这里也间接继承了struts-default.xml，拥有了框架自带的很多功能
+    注意namespace的值 这里的/struts是我刻意这么命名的，后面讲解到配置过滤器：
+    org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter时你就明白了
+    -->
+    <package name="example" namespace="/struts/example" extends="globalPackage">
+
+        <!--
+        action:
+        action 元素嵌套在 package 元素内部, 它表示一个 Struts请求
+
+        name:
+        每个 action 都必须有一个 name 属性, 该属性和用户请求 servletPath 之间存在着一一对应关系
+
+        action 元素的 class 属性是可选的.
+        如果没有配置 class 属性, Struts 将把 com.opensymphony.xwork2.ActionSupport 作为其默认值.
+        如果配置了 class 属性, 还可以使用 method 属性配置该类的一个动作方法. method 属性的默认值为 execute
+        -->
+        <action name="index" class="com.lzy.j2ee.client.action.example.HelloStruts2Action">
+
+           <!--
+           result 元素的 name 属性建立 <result> 和 Action 方法返回值之间的映射关系。
+
+           result 元素的 type 属性负责指定结果类型.
+           type 属性的值必须是在包含当前包或者是当前包的父包里注册过的结果类型. type 属性的默认值为 dispatcher
+           -->
+            <result name="success" type="dispatcher">/WEB-INF/jsp/example/index.jsp</result>
+        </action>
+
+        <action name="hibernate_*" method="{1}" class="com.lzy.j2ee.client.action.example.HelloHibernateAction">
+            <result>/WEB-INF/jsp/example/hibernate.jsp</result>
+        </action>
+    </package>
+
+</struts>

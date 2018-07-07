@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <package name="testfieldshare" namespace="/struts/testfieldshare" extends="globalPackage">
+        <!--method 默认值是execute-->
+        <action name="index" class="com.lzy.j2ee.client.action.testfieldshare.TestFieldShareAction">
+            <result name="ok" type="dispatcher">
+                /WEB-INF/jsp/testfieldshare/index.jsp
+            </result>
+        </action>
+    </package>
+
+</struts>

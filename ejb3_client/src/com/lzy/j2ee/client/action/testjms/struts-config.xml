@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <!--
+    在实际项目中推荐将这些配置可以放到struts.xml文件中，多个模块共享。
+    这样模块在下次使用时都不必每次都配置一下
+    我这里是演示，我希望多配几次，加深学者映像-->
+
+    <!--这一行配置主要是提示验证消息时，屏蔽Struts2的自动生成table/td/tr标签-->
+    <constant name="struts.ui.theme" value="simple" />
+    <!--这里指定国际化文件的标识-->
+    <constant name="struts.custom.i18n.resources"  value="info" />
+    <constant name="struts.i18n.encoding"  value="UTF-8" />
+    <!--这里指定使用哪个国际化配置文件-->
+    <constant name="struts.locale" value="zh_CN" />
+    <!-- 指定允许上传的文件最大字节数。默认值是2097152(2M) -->
+    <constant name="struts.multipart.maxSize" value="2048000000" />
+    <!-- 设置上传文件的临时文件夹,当文件上传过来时，struts2首先会寻找struts.multipart.saveDir所指定的存放位置
+    默认使用javax.servlet.context.tempdir -->
+    <constant name="struts.multipart.saveDir" value="D:/tempUploadFile" />
+    <package name="testjms" namespace="/struts/testjms" extends="globalPackage">
+
+        <!--
+        使用了通配符技术后，真的减少了很多action的配置， 看到没，这里只需要一个即可
+        约定优于配置这句话是有道理的吧
+        -->
+        <action name="*_*" method="{2}" class="com.lzy.j2ee.client.action.testjms.{1}">
+            <interceptor-ref name="defaultStack">
+                <param name="fileUpload.allowedExtensions">doc,docx,ppt,pptx,xls,xlsx,pdf,txt,jpg,png</param>
+            </interceptor-ref>
+
+            <result name="success" type="dispatcher">
+                /WEB-INF/jsp/testjms/index.jsp
+            </result>
+
+            <!--国际化错误时跳转-->
+            <result name="input"> /WEB-INF/jsp/testjms/index.jsp</result>
+
+            <!--因为我们用的是文件下载，所以type一定要定义成stream类型，告诉action这是文件下载的result-->
+            <result name="download" type="stream">
+                <!--result元素里面一般还有param子元素，这个是用来设定文件下载时的参数，
+                inputName这个属性就是得到action中的文件输入流，名字一定要和action中的输入流属性名字相同-->
+                <param name="inputName">inputStream</param>
+                <!--然后就是contentDisposition属性，这个属性一般用来指定我们希望通过怎么样的方式来处理下载的文件，
+                如果值是attachment，则会弹出一个下载框，让用户选择是否下载，如果不设定这个值，
+                那么浏览器会首先查看自己能否打开下载的文件，如果能，就会直接打开所下载的文件
+                另外一个值就是filename这个就是文件在下载时所提示的文件下载名字
+                -->
+                <!--<param name="contentDisposition">attachment;filename=</param>-->
+            </result>
+        </action>
+    </package>
+
+</struts>

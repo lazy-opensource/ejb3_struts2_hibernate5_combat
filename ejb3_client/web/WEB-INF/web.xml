@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+           version="3.0">
+
+    <!--project servlet conf-->
+    <servlet>
+        <servlet-name>helloEjb</servlet-name>
+        <servlet-class>com.lzy.j2ee.client.action.example.HelloEjbServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>testRemote</servlet-name>
+        <servlet-class>com.lzy.j2ee.client.action.testremote.TestStatelessSessionRemoteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>testLocal</servlet-name>
+        <servlet-class>com.lzy.j2ee.client.action.testlocal.TestStatelessSessionLocalServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>testRL</servlet-name>
+        <servlet-class>com.lzy.j2ee.client.action.testRL.TestStatelessSessionRLServlet</servlet-class>
+    </servlet>
+    <!-- 配置使用标签时的标签支持配置 -->
+    <servlet>
+        <!-- define a JspSupportServlet Object -->
+        <servlet-name>JspSupportServlet</servlet-name>
+        <servlet-class>org.apache.struts2.views.JspSupportServlet</servlet-class>
+        <!-- setting JspSupportServlet auto start -->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!--project servlet mapping conf-->
+    <servlet-mapping>
+        <servlet-name>JspSupportServlet</servlet-name>
+        <url-pattern>/testfreemarker</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>testRL</servlet-name>
+        <url-pattern>/testRL</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>testLocal</servlet-name>
+        <url-pattern>/testLocal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>testRemote</servlet-name>
+        <url-pattern>/testRemote</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>helloEjb</servlet-name>
+        <url-pattern>/helloEjb</url-pattern>
+    </servlet-mapping>
+
+    <!--struts2 filter conf-->
+    <filter>
+        <filter-name>struts2</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+    </filter>
+
+    <!--struts2 filter mapping conf-->
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>/struts/*</url-pattern>
+    </filter-mapping>
+
+</web-app>
